@@ -1,0 +1,116 @@
+﻿
+@model IEnumerable<Plan>
+
+
+
+
+    <div class="app">
+   
+
+        <div class="main">
+        <header class="topbar">
+                <button class="burger" type="button" data-nav-toggle aria-label="Open menu"><i class="bi bi-list"></i></button>
+                <div class="crumbs">
+                    <a href="index.html"><i class="bi bi-house-door"></i></a>
+                    <span class="sep">/</span>
+                    <!-- BACKEND: Current page name -->
+                    <span class="here">Home Page</span>
+                </div>
+                <div class="topbar-right">
+                    <!-- BACKEND: Today's date With Format dddd, d MMM yyyy -->
+                    <span class="date-chip"><i class="bi bi-calendar3"></i> Tuesday, 17 Nov 2026</span>
+                </div>
+            </header>
+
+
+            <!-- ==================== PAGE CONTENT: /Plan/Index ==================== -->
+            <main class="content">
+
+                <div class="page-head">
+                    <div>
+                        <h1 class="page-title">Plans</h1>
+                        <p class="page-sub">What members can subscribe to</p>
+                    </div>
+                </div>
+
+                <div class="callout" style="margin-bottom:22px">
+                    <i class="bi bi-shield-check"></i>
+                    <div>A plan with <strong>active or upcoming memberships</strong> is locked: it can't be edited or deactivated until those memberships end. Inactive plans can't be sold or edited.</div>
+                </div>
+
+                <!-- BACKEND: The page needs a list of plans from the database (all of them, active and inactive) -->
+                @if(!Model.Any())
+                 {
+                @*    <!-- BACKEND: EMPTY STATE → show this INSTEAD of the cards when there are no plans. -->
+                <!-- It's visible here only so you can see the design. --> *@
+                <div class="card-r empty" style="margin-top:22px">
+                    <div class="empty-icon"><i class="bi bi-tags"></i></div>
+                    <h3>No plans found</h3>
+                </div>
+
+                 }
+                 else{
+                   <div class="grid-cards">
+                            @foreach(var plan in Model)
+                            {
+                            <div class="card-r plan-card @(plan.IsActive ? "" : "inactive")">
+                                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+
+                                    <h2 class="plan-name">@plan.Name</h2>
+                                        @if (plan.IsActive)
+                                        {
+                                            <span class="badge-r badge-ok">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge-r badge-mute">Inactive</span>
+                                        }
+
+                                    
+                                </div>
+
+                                <div class="plan-price">@plan.Price<small>EGP</small></div>
+
+                                <div class="plan-meta"><i class="bi bi-calendar-range"></i>@plan.DurationDays days</div>
+
+                                <p class="plan-desc">@plan.Description</p>
+                                <div class="card-foot">
+                                        @if (plan.IsActive)
+                                        {
+                                              @* <!-- BACKEND: Edit page for this plan → needs the plan Id in the link --> *@
+                                         <a class="btn-r btn-outline-r btn-sm-r" href="#"><i class="bi bi-pencil"></i> Edit</a>
+                                          @* <!-- BACKEND: POST that switches IsActive (active → inactive) → needs the plan Id -->
+                                       <!-- data-confirm shows a confirm box before submitting (site.js) --> *@
+                                       <form action="#" method="post" style="flex:1;display:flex" data-confirm="Deactivate Basic Monthly? It won't be available for new memberships.">
+                                        <button type="submit" class="btn-r btn-soft-danger btn-sm-r" style="flex:1"><i class="bi bi-pause-circle"></i> Deactivate</button>
+                                          </form>
+                                        }
+                                        else
+                                        {
+                                            <from asp-action = "ToggleStatus" asp-route-id = "plan.Id" method = "post" style="flex:1;display:flex">
+                                            <button type="submit" class="btn-r btn-soft-ok btn-sm-r" style="flex:1"><i class="bi bi-play-circle"></i> Activate</button>
+                                            </from>
+                                        }
+
+                                </div>
+                            </div>
+                            }
+                    
+                   
+
+                    
+                </div>
+                 }
+                
+
+               
+
+            </main>
+            <!-- ================== END PAGE CONTENT ================== -->
+        </div>
+    </div>
+
+    <!-- BACKEND: site.js -->
+    
+
+

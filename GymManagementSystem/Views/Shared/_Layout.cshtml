@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GymManagementSystem</title>
+    <script type="importmap"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- BACKEND: assets/ folder -->
+    <link rel="stylesheet" href="~/assets/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <!-- BACKEND: assets/ folder -->
+    <link rel="stylesheet" href="~/assets/css/route.css" />
+</head>
+<body>
+<aside class="sidebar">
+            <!-- BACKEND: Links  instead of .html files -->
+            <a class="brand" asp-controller="Home" asp-action="Index">
+                <span class="brand-mark">R</span>
+                <span class="brand-text">
+                    <span class="brand-name">ROUTE</span>
+                    <span class="brand-sub">Gym Management</span>
+                </span>
+            </a>
+
+            <nav>
+                <div class="nav-group">
+                    <div class="nav-label">Overview</div>
+                    <!-- BACKEND: Home / Index -->
+                    <a class="nav-link-r" asp-controller="Home" asp-action="Index"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-label">People</div>
+                    <!-- BACKEND: Member / Index  -->
+                    <a class="nav-link-r" href="#"><i class="bi bi-people"></i> Members</a>
+                    <!-- BACKEND: Trainer / Index  -->
+                    <a class="nav-link-r" href="#"><i class="bi bi-person-badge"></i> Trainers</a>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-label">Gym</div>
+                    <!-- BACKEND: Plan / Index -->
+                    <a class="nav-link-r" asp-controller="Plan" asp-action="Index"><i class="bi bi-tags"></i> Plans</a>
+                    <!-- BACKEND: Membership / Index  -->
+                    <a class="nav-link-r" href="#"><i class="bi bi-card-checklist"></i> Memberships</a>
+                    <!-- BACKEND: Session / Index -->
+                    <a class="nav-link-r" href="#"><i class="bi bi-calendar-week"></i> Sessions</a>
+                </div>
+            </nav>
+
+            <div class="sidebar-foot">
+                <span class="track-chip">.NET Track</span>
+                <span>Route Academy</span>
+            </div>
+        </aside>
+        <div class="scrim" data-nav-toggle></div>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - GymManagementSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/assets/js/site.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
